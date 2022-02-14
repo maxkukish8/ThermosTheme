@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="newsletter_head_components" template="Magento_Newsletter::js/components.phtml" ifconfig="newsletter/general/active"/>
+        </referenceBlock>
+        <referenceContainer name="footer">
+            <container name="footer_newsletter_wrapper" htmlTag="div" htmlClass="newsletter-wrapper">
+
+                <container name="footer_newsletter_block_title_wrapper" htmlTag="div" htmlClass="selected" before="-">
+                    <block class="Magento\Cms\Block\Block" name="footer_newsletter_block_title">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer_newsletter_block_title</argument>
+                        </arguments>
+                    </block>
+                </container>
+
+                <container name="footer_newsletter_block_content_wrapper" htmlTag="div" htmlClass="section">
+
+                    <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="Magento_Newsletter::subscribe.phtml" ifconfig="newsletter/general/active"/>
+
+                    <!--Added Social block cms page-->
+                    <container name="footer-social-wrapper" htmlTag="div" htmlClass="social-wrapper">
+                        <block class="Magento\Cms\Block\Block" name="footer_social_block" after="form.subscribe">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">footer_social_block</argument>
+                            </arguments>
+                        </block>
+                    </container>
+
+                </container>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

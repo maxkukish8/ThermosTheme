@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <div class="fieldset-inner">
+                <?php echo $this->getLayout()
+                    ->createBlock('Magento\Catalog\Pricing\Render',
+                        "product.price.final",
+                        [
+                            'data' => [
+                                'price_render' => 'product.price.render.default',
+                                'price_type_code' => 'final_price',
+                                'zone' => 'item_view'
+                            ]
+                        ]
+                    )
+                    ->toHtml();
+                ?>
+
+                <?php if ($block->shouldRenderQuantity()) :?>
+                    <div class="field qty">
+                        <div class="control qty-block" data-mage-init='{"qtyBlock": {}}'>
+                            <input type="number"
+                                   name="qty"
+                                   id="qty"
+                                   min="0"
+                                   value="<?= $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                   class="input-text qty qty-block__input"
+                                   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary tocart"
+                        id="product-addtocart-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

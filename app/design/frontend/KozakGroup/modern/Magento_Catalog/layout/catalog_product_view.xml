@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+
+            <container name="wrapper_attributes" htmlTag="div" htmlClass="attributes-wrapper" after="product.info.media">
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.image.attribute" template="Magento_Catalog::product/view/attribute.phtml" after="product.info.overview">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getImageAttribute</argument>
+                        <argument name="at_code" xsi:type="string">image_attribute</argument>
+                        <argument name="css_class" xsi:type="string">image-attribute</argument>
+                        <argument name="at_label" xsi:type="string">none</argument>
+                        <argument name="title" translate="true" xsi:type="string">Image attribute</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="description"</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.features.attribute" template="Magento_Catalog::product/view/attribute.phtml" after="-">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getFeaturesAttribute</argument>
+                        <argument name="at_code" xsi:type="string">features_attribute</argument>
+                        <argument name="css_class" xsi:type="string">features-attribute</argument>
+                        <argument name="at_label" xsi:type="string">none</argument>
+                        <argument name="title" translate="true" xsi:type="string">Features attribute</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="description"</argument>
+                    </arguments>
+                </block>
+            </container>
+
+            <container name="wrapper_review" htmlTag="div" htmlClass="review-wrapper" after="-">
+                <block class="Magento\Catalog\Block\Product\View" name="product.info.review.second" template="Magento_Catalog::product/view/review.phtml"/>
+            </container>
+
+        </referenceContainer>
+
+        <move element="product.info.review" destination="product.info.main" after="page.main.title" />
+        <move element="product.info.description" destination="product.info.main" after="product.info.review" />
+        <move element="product.attributes" destination="product.info.main" after="product.info.description" />
+
+        <move element="reviews.tab" destination="wrapper_review" />
+        <move element="product.review.form" destination="wrapper_review" before="reviews.tab"/>
+
+        <move element="product.info.overview" destination="wrapper_attributes" before="-" />
+
+        <referenceBlock name="product.price.final" remove="true"/>
+        <referenceBlock name="product.info.social" remove="true"/>
+    </body>
+</page>
+

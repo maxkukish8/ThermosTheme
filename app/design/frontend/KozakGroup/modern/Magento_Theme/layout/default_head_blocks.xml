@@ -1,0 +1,6 @@
+<page xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css after="-" src="css/carousel/slick.css"/>
+        <css after="-" src="css/carousel/slick-theme.css"/>
+    </head>
+</page>

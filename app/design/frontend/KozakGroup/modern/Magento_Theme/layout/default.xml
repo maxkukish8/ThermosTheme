@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <!--Include CMS Block -->
+        <referenceContainer name="header.container">
+            <container name="wrapper_header_top_strip_promo" htmlTag="div" htmlClass="header-top-strip" before="header-wrapper">
+                <block class="Magento\Cms\Block\Block" name="block_header_top_strip_promo">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-top-strip-promo</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" name="login.topnav" template="Magento_Theme::html/login.phtml"/>
+        </referenceContainer>
+
+        <move element="navigation.sections" destination="header-wrapper" after="logo"/>
+        <move element="login.topnav" destination="catalog.topnav" after="top.search" />
+        <move element="top.search" destination="catalog.topnav" before="-" />
+
+        <referenceBlock name="header.panel.wrapper" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true" />
+
+
+        <referenceContainer name="footer-container">
+
+            <container name="wrapper_footer_logo" htmlTag="div" htmlClass="wrapper-footer-logo">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="logo_footer">
+                    <arguments>
+                        <argument name="logoPathResolver" xsi:type="object">Magento\Theme\ViewModel\Block\Html\Header\LogoPathResolver</argument>
+                        <argument name="logo_size_resolver" xsi:type="object">Magento\Theme\ViewModel\Block\Html\Header\LogoSizeResolver</argument>
+                    </arguments>
+                </block>
+
+                <container name="wrapper_after_logo_block" htmlTag="div" htmlClass="container">
+                    <block class="Magento\Cms\Block\Block" name="footer_after_logo_block">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer_after_logo_block</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+
+            <container name="wrapper_footer_links" htmlTag="div" htmlClass="wrapper-footer-links">
+                <block class="Magento\Cms\Block\Block" name="custom_footer_links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_links</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="footer_links" remove="true" />
+        <move element="wrapper_footer_logo" destination="footer" before="-" />
+        <move element="wrapper_footer_links" destination="footer" after="wrapper_footer_logo" />
+    </body>
+</page>

@@ -1,0 +1,103 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div class="block-content">
+    <div class="sidecart-top">
+        <div class="block-title">
+            <strong>
+                <span class="text" translate="'Your Cart'"></span>
+            </strong>
+        </div>
+        <button type="button"
+                id="btn-minicart-close"
+                class="action close"
+                data-action="close"
+                data-bind="
+                attr: {
+                    title: $t('Close')
+                },
+                click: closeMinicart()
+            ">
+            <span translate="'Close'"></span>
+        </button>
+    </div>
+
+    <if args="getCartParam('summary_count')">
+        <div data-action="scroll" class="minicart-items-wrapper">
+            <strong class="subtitle" translate="'Recently added item(s)'"></strong>
+
+            <ol id="mini-cart" class="minicart-items" data-bind="foreach: { data: getCartItems(), as: 'item' }">
+                <each args="$parent.getRegion($parent.getItemRenderer(item.product_type))"
+                      render="{name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}}"></each>
+            </ol>
+        </div>
+    </if>
+
+    <div class="sidecart-bottom">
+        <if args="getCartParam('summary_count')">
+
+            <each args="getRegion('subtotalContainer')" render=""></each>
+            <each args="getRegion('extraInfo')" render=""></each>
+
+            <div class="cart-item-row">
+                <p>Shipping, taxes, and discount codes calculated at checkout.</p>
+                <p>By clicking Checkout Now, you confirm agreement to the <a href="/customer-service">Terms & Conditions</a> and included <a href="/privacy-policy">Privacy Policy</a>.</p>
+            </div>
+
+            <div class="actions" if="getCartParam('possible_onepage_checkout')">
+                <div class="primary">
+                    <button
+                        id="top-cart-btn-checkout"
+                        type="button"
+                        class="action primary checkout"
+                        data-action="close"
+                        data-bind="
+                            attr: {
+                                title: $t('Proceed to Checkout')
+                            },
+                            click: closeMinicart()
+                        "
+                        translate="'Checkout Now'">
+                    </button>
+                    <div data-bind="html: getCartParamUnsanitizedHtml('extra_actions')"></div>
+                </div>
+            </div>
+            <div class="checkout-section">
+                <p>Checkout made easy with more option than ever</p>
+            </div>
+        </if>
+
+        <ifnot args="getCartParam('summary_count')">
+            <strong class="subtitle empty"
+                    translate="'You have no items in your shopping cart.'"></strong>
+            <if args="getCartParam('cart_empty_message')">
+                <p class="minicart empty text" text="getCartParam('cart_empty_message')"></p>
+                <div class="actions">
+                    <div class="secondary">
+                        <a class="action viewcart" data-bind="attr: {href: shoppingCartUrl}">
+                            <span translate="'View and Edit Cart'"></span>
+                        </a>
+                    </div>
+                </div>
+            </if>
+        </ifnot>
+
+        <div class="actions" if="getCartParam('summary_count')">
+            <div class="secondary">
+                <a class="action viewcart" data-bind="attr: {href: shoppingCartUrl}">
+                    <span translate="'View and Edit Cart'"></span>
+                </a>
+            </div>
+        </div>
+
+        <div id="minicart-widgets" class="minicart-widgets" if="regionHasElements('promotion')">
+            <each args="getRegion('promotion')" render=""></each>
+        </div>
+    </div>
+
+</div>
+<each args="getRegion('sign-in-popup')" render=""></each>

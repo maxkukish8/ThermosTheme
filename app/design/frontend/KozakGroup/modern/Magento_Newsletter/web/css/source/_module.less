@@ -1,0 +1,126 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    //  Newsletter subscription
+    .block.newsletter {
+        margin-bottom: 20px;
+
+        .form.subscribe {
+            display: table;
+            width: 100%;
+            .label {
+                text-transform: none;
+            }
+        }
+
+        .fieldset {
+            display: table-cell;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .field {
+            margin: 15px 0 0;
+
+            .control {
+                width: 100%;
+                position: relative;
+                .lib-icon-font(
+                    @icon-envelope,
+                    @_icon-font-size: 16px,
+                    @_icon-font-line-height: 32px,
+                    @_icon-font-color: @form-element-input-placeholder__color,
+                    @_icon-font-margin: 0 0 0 8px
+                );
+                &:before {
+                    position: absolute;
+                }
+                &:after {
+                    content: '';
+                    position: absolute;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-image: url('../images/paper-plane.png');
+                    width: 20px;
+                    height: 20px;
+                    top: 50%;
+                    right: 15px;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+
+        input {
+            padding: 0 0 0 20px;
+            opacity: .8;
+            border-radius: 5px;
+            height: 42px;
+        }
+
+        .title {
+            display: none;
+        }
+
+        .actions {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .action.subscribe {
+            padding: 15px 18px;
+            background: transparent;
+            border: none;
+            span {
+                display: none;
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block.newsletter {
+        .field.newsletter {
+            .control {
+                width: 80%;
+            }
+            input {
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .block {
+        &.newsletter {
+            input {
+                font-size: 12px;
+                padding-left: 30px;
+            }
+
+            .field {
+                .control:before {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

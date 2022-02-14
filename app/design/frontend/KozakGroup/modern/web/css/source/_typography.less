@@ -1,0 +1,26 @@
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .lib-font-face(
+        @family-name: @font-family-name__base,
+        @font-path: '@{baseDir}fonts/Dinot'
+    );
+
+    @font-face {
+        font-family: 'Dinot';
+        src: url("../fonts/Dinot.otf") format("opentype");
+    };
+
+    .lib-font-face(
+        @family-name: @font-family-name__condensed,
+        @font-path: '@{baseDir}fonts/Dinot-CondBold'
+    );
+
+    @font-face {
+        font-family: 'Dinot-CondBold';
+        src: url("../fonts/Dinot-CondBold.otf") format("opentype");
+    };
+}
